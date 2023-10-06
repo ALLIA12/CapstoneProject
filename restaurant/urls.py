@@ -8,4 +8,5 @@ urlpatterns = [
     path('<int:pk>', views.SingleMenuItemView.as_view()),
     path('api-token-auth/', obtain_auth_token),
     path('check-auth/', views.check_user_authentication, name='check-auth'),
+    path('index/', views.index),
 ]

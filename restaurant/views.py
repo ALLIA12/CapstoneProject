@@ -32,3 +32,11 @@ class BookingViewSet(rest_framework.viewsets.ModelViewSet):
 def check_user_authentication(request):
     print(request.user)
     return HttpResponse(f"username: {request.user.username}\n, email: {request.user.email}")
+
+
+def sayHello(request):
+    return HttpResponse('Hello World')
+
+
+def index(request):
+    return render(request, 'index.html', {})
