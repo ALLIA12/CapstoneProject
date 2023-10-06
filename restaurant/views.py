@@ -31,17 +31,4 @@ class BookingViewSet(rest_framework.viewsets.ModelViewSet):
 @permission_classes([IsAuthenticated])
 def check_user_authentication(request):
     print(request.user)
-    user_data = {
-        "username": '',
-        "email": ''  # request.user.email,
-        # Add other fields if needed
-    }
-    return HttpResponse(user_data)
-
-
-def sayHello(request):
-    return HttpResponse('Hello World')
-
-
-def index(request):
-    return render(request, 'index.html', {})
+    return HttpResponse(f"username: {request.user.username}\n, email: {request.user.email}")
