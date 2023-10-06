@@ -1,34 +1,42 @@
 import rest_framework.viewsets
 from django.http import HttpResponse
 from django.shortcuts import render
+from requests import Response
 from rest_framework import generics
-from rest_framework.views import APIView
-
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import permission_classes, action, api_view
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
-# Assuming you have a serializer called `MenuItemSerializer` and a model called `MenuItem`.
 from .models import Menu, Booking
 from .serilizers import MenuSerializer, BookingSerializer
 
 
 class MenuItemView(generics.ListCreateAPIView):
-    """
-    List all menu items or create a new one.
-    """
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
 
 class SingleMenuItemView(generics.RetrieveUpdateAPIView, generics.DestroyAPIView):
-    """
-    Retrieve, update or delete a menu item instance.
-    """
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
 
 
 class BookingViewSet(rest_framework.viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def check_user_authentication(request):
+    print(request.user)
+    user_data = {
+        "username": '',
+        "email": ''  # request.user.email,
+        # Add other fields if needed
+    }
+    return HttpResponse(user_data)
 
 
 def sayHello(request):
