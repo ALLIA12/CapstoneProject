@@ -10,3 +10,5 @@ Available routes:
     To get static content
 -restaurant/booking/tables/
     To get or create a new booking
+-auth/
+    To do any djoser stuff
